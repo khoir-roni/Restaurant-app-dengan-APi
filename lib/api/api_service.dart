@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:restaurant_app_api/models/restaurant_detail.dart';
-import 'package:restaurant_app_api/models/restaurant_list.dart';
-import 'package:restaurant_app_api/models/restaurant_search.dart';
+
+import '../models/restaurant_detail.dart';
+import '../models/restaurant_list.dart';
+import '../models/restaurant_search.dart';
 
 class ApiService {
   Future<RestaurantList> fetchList() async {
@@ -15,6 +16,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         return RestaurantList.fromJson(json.decode(response.body));
+        print(response.body);
       } else {
         throw Exception('tidak dapat untuk mengambil data');
       }

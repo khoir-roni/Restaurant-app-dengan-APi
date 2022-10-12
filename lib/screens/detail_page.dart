@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/models/restaurant_detail.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_api/provider/restaurant_detail_provider.dart';
+import '../models/restaurant_detail.dart';
 
 import '../api/api_service.dart';
 import '../widgets/menu_list.dart';
@@ -146,4 +148,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
     // lismenu(Menus menus) {}
   }
+
+  // lismenu(Menus menus) {}
 }

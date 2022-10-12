@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/theme/theme.dart';
+import '../theme/theme.dart';
 
 class SearchTab extends StatefulWidget {
   final String text;

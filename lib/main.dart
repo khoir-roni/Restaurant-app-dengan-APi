@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/models/restaurant_list.dart';
-import 'package:restaurant_app_api/screens/search_screen.dart';
+import 'models/restaurant_list.dart';
+import 'screens/search_screen.dart';
 import 'screens/home_page.dart';
 
 

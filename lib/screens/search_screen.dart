@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/models/restaurant_search.dart';
-import 'package:restaurant_app_api/widgets/search_tab.dart';
+import 'package:provider/provider.dart';
+import '../models/restaurant_search.dart';
+import '../provider/restaurant_search_provider.dart';
+import '../widgets/search_tab.dart';
 
 import '../api/api_service.dart';
-import '../widgets/restauran_card_list.dart';
+import '../widgets/restaurant_card_list.dart';
 
 class SearchScreen extends StatefulWidget {
   static const screenTitle = "searchScreen";
@@ -53,6 +55,8 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
+
+
   Widget _build(BuildContext context) {
     return FutureBuilder(
       future: _restaurantSearch,
@@ -62,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
           return const Center(child: CircularProgressIndicator());
         } else {
           if (snapshot.hasData) {
-                        if (snapshot.data?.founded == 0) {
+            if (snapshot.data?.founded == 0) {
               return const Center(
                 child: Text('silahkan cari yang lain'),
               );

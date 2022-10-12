@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/api/api_service.dart';
-import 'package:restaurant_app_api/models/restaurant_list.dart';
-import 'package:restaurant_app_api/widgets/restauran_card_list.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_api/provider/restaurant_list_provider.dart';
+import '../api/api_service.dart';
+import '../models/restaurant_list.dart';
+import '../widgets/restaurant_card_list.dart';
 import '../theme/theme.dart';
 
 import 'detail_page.dart';
@@ -21,6 +23,43 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
   void initState() {
     super.initState();
     _restaurantList = ApiService().fetchList();
+  }
+
+  Widget _buildList(BuildContext context) {
+    return Consumer<RestaurantListProvider>(
+      builder: (context, state, _) {
+        if (state.state == ResultState.loading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state.state == ResultState.hasData) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.result.restaurants.length,
+            itemBuilder: (context, index) {
+              var restaurant = state.result.restaurants[index];
+              return RestaurantCardList(restaurant: restaurant);
+            },
+          );
+        } else if (state.state == ResultState.noData) {
+          return Center(
+            child: Material(
+              child: Text(state.message),
+            ),
+          );
+        } else if (state.state == ResultState.error) {
+          return Center(
+            child: Material(
+              child: Text(state.message),
+            ),
+          );
+        } else {
+          return const Center(
+            child: Material(
+              child: Text(''),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -54,7 +93,9 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
               ),
             );
           } else {
-            return const Material(child: Text(''));
+            return const Material(
+              child: Text('coba'),
+            );
           }
         }
       },
@@ -87,7 +128,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
               height: 10,
             ),
             Expanded(
-              child: _build(context),
+              child: _buildList(context),
             )
           ],
         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api/models/restaurant_search.dart';
-import 'package:restaurant_app_api/screens/search_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_api/provider/restaurant_list_provider.dart';
+import 'package:restaurant_app_api/provider/restaurant_search_provider.dart';
+import '../models/restaurant_search.dart';
+import 'search_screen.dart';
 
 import '../api/api_service.dart';
 import '../models/restaurant_list.dart';
@@ -19,12 +22,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _bottomNavIndex = 0;
 
-  final List<Widget> _listWidget = const [
-    RestaurantListScreen(),
-    SearchScreen(),
+  final List<Widget> _listWidget = [
+    ChangeNotifierProvider<RestaurantListProvider>(
+      create: (_) => RestaurantListProvider(apiService: ApiService()),
+      child: const RestaurantListScreen(),
+    ),
+    const SearchScreen(),
+    ChangeNotifierProvider<RestaurantSearchProvider>(
+      create: (_) => RestaurantSearchProvider(apiService: ApiService()),
+      child: const SearchScreen(),
+    ),
   ];
 
-  final List<BottomNavigationBarItem> _bottomNavBarItems = [
+  final List<BottomNavigationBarItem> _bottomNavBarItems = const [
     BottomNavigationBarItem(
       icon: Icon(Icons.public),
       label: HomeScreen._headlineText,
