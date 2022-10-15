@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Column(
       children: [
         _buildSearch(),
-        Expanded(child: _build(context)),
+        // Expanded(child: _buildList(context)),
       ],
     );
   }
@@ -42,55 +42,96 @@ class _SearchScreenState extends State<SearchScreen> {
     return SearchTab(
       text: query,
       hintText: 'Nama Restaurant',
-      onChanged: _SearchRestaurants,
+      // onChanged: _SearchRestaurants,
     );
   }
 
-  Future _SearchRestaurants(String query) async {
-    _restaurantSearch = ApiService().searchRestaurant(query);
-    if (!mounted) return;
+  // Future _SearchRestaurants(String query) async {
+  //   // _restaurantSearch = ApiService().searchRestaurant(query);
+  //   if (!mounted) return;
 
-    setState(() {
-      this.query = query;
-    });
-  }
+  //   setState(() {
+  //     this.query = query;
+  //   });
+  // }
 
+  // Widget _buildList(BuildContext context) {
+  //   return ChangeNotifierProvider<RestaurantSearchProvider>(
+  //     create: (_) =>
+  //         RestaurantSearchProvider(apiService: ApiService(), query: query),
+  //     child: Consumer<RestaurantSearchProvider>(
+  //       builder: (context, state, _) {
+  //         print(state.state);
+  //         print(state.result.founded);
+  //         if (state.state == ResultState.loading) {
+  //           return const Center(child: CircularProgressIndicator());
+  //         } else if (state.state == ResultState.hasData) {
+  //           return ListView.builder(
+  //             shrinkWrap: true,
+  //             itemCount: state.result.restaurants.length,
+  //             itemBuilder: (context, index) {
+  //               var restaurant = state.result.restaurants[index];
+  //               return RestaurantCardList(restaurant: restaurant);
+  //             },
+  //           );
+  //         } else if (state.state == ResultState.noData) {
+  //           return Center(
+  //             child: Material(
+  //               child: Text(state.message),
+  //             ),
+  //           );
+  //         } else if (state.state == ResultState.error) {
+  //           return Center(
+  //             child: Material(
+  //               child: Text(state.message),
+  //             ),
+  //           );
+  //         } else {
+  //           return const Center(
+  //             child: Material(
+  //               child: Text(''),
+  //             ),
+  //           );
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
+  // // Widget _build(BuildContext context) {
+  //   return FutureBuilder(
+  //     future: _restaurantSearch,
+  //     builder: (context, AsyncSnapshot<RestaurantSearch> snapshot) {
+  //       var state = snapshot.connectionState;
+  //       if (state != ConnectionState.done) {
+  //         return const Center(child: CircularProgressIndicator());
+  //       } else {
+  //         if (snapshot.hasData) {
+  //           if (snapshot.data?.founded == 0) {
+  //             return const Center(
+  //               child: Text('silahkan cari yang lain'),
+  //             );
+  //           }
+  //           return ListView.builder(
+  //             shrinkWrap: true,
+  //             itemCount: snapshot.data?.restaurants.length,
+  //             itemBuilder: (context, index) {
+  //               var restaurant = snapshot.data?.restaurants[index];
 
-  Widget _build(BuildContext context) {
-    return FutureBuilder(
-      future: _restaurantSearch,
-      builder: (context, AsyncSnapshot<RestaurantSearch> snapshot) {
-        var state = snapshot.connectionState;
-        if (state != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          if (snapshot.hasData) {
-            if (snapshot.data?.founded == 0) {
-              return const Center(
-                child: Text('silahkan cari yang lain'),
-              );
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data?.restaurants.length,
-              itemBuilder: (context, index) {
-                var restaurant = snapshot.data?.restaurants[index];
-
-                return RestaurantCardList(restaurant: restaurant);
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Material(
-                child: Text(snapshot.error.toString()),
-              ),
-            );
-          } else {
-            return const Material(child: Text('Coba cari yang lain'));
-          }
-        }
-      },
-    );
-  }
+  //               return RestaurantCardList(restaurant: restaurant);
+  //             },
+  //           );
+  //         } else if (snapshot.hasError) {
+  //           return Center(
+  //             child: Material(
+  //               child: Text(snapshot.error.toString()),
+  //             ),
+  //           );
+  //         } else {
+  //           return const Material(child: Text('Coba cari yang lain'));
+  //         }
+  //       }
+  //     },
+  //   );
+  // }
 }

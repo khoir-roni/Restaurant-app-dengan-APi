@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_api/provider/restaurant_list_provider.dart';
+import '../provider/restaurant_list_provider.dart';
 import '../api/api_service.dart';
 import '../models/restaurant_list.dart';
 import '../widgets/restaurant_card_list.dart';
@@ -62,45 +62,6 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
     );
   }
 
-  @override
-  Widget _build(BuildContext context) {
-    return FutureBuilder(
-      future: _restaurantList,
-      builder: (context, AsyncSnapshot<RestaurantList> snapshot) {
-        var state = snapshot.connectionState;
-        if (state != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data?.restaurants.length,
-              itemBuilder: (context, index) {
-                var error = snapshot.data?.error;
-                var restaurant = snapshot.data?.restaurants[index];
-                if (error == true) {
-                  return const Center(
-                      child: Text('tidak bisa menampilkan data'));
-                } else {
-                  return RestaurantCardList(restaurant: restaurant);
-                }
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Material(
-                child: Text(snapshot.error.toString()),
-              ),
-            );
-          } else {
-            return const Material(
-              child: Text('coba'),
-            );
-          }
-        }
-      },
-    );
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(

@@ -16,12 +16,12 @@ class ApiService {
 
       if (response.statusCode == 200) {
         return RestaurantList.fromJson(json.decode(response.body));
-        print(response.body);
+        // print(response.body);
       } else {
-        throw Exception('tidak dapat untuk mengambil data');
+        throw ('tidak dapat untuk mengambil data');
       }
     } on SocketException {
-      throw Exception('gagal menyambung ke server');
+      throw ('Gagal menyambung ke server, cek koneksi internet anda');
     } catch (e) {
       rethrow;
     }
@@ -35,10 +35,10 @@ class ApiService {
       if (response.statusCode == 200) {
         return RestaurantDetail.fromJson(json.decode(response.body));
       } else {
-        throw Exception('Failed to load detail of restaurants');
+        throw ('Failed to load detail of restaurants');
       }
     } on SocketException {
-      throw Exception('gagal menyambung ke server');
+      throw ('Gagal menyambung ke server, cek koneksi internet anda');
     } catch (e) {
       rethrow;
     }
@@ -46,6 +46,7 @@ class ApiService {
 
   Future<RestaurantSearch> searchRestaurant(String query) async {
     try {
+      print("searchRestaurant(String $query)");
       final url = 'https://restaurant-api.dicoding.dev/search?q=$query';
       final response = await http.get(Uri.parse(url));
       // print(response.statusCode);
@@ -53,10 +54,10 @@ class ApiService {
         // print(response.body);
         return RestaurantSearch.fromJson(json.decode(response.body));
       } else {
-        throw Exception("silahkan untuk mencari yang lain");
+        throw ("silahkan untuk mencari yang lain");
       }
     } on SocketException {
-      throw Exception('gagal menyambung ke server');
+      throw ('Gagal menyambung ke server, cek koneksi internet anda');
     } catch (e) {
       rethrow;
     }

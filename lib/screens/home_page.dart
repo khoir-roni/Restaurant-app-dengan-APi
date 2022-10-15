@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_api/provider/restaurant_list_provider.dart';
-import 'package:restaurant_app_api/provider/restaurant_search_provider.dart';
+import '../provider/restaurant_list_provider.dart';
+import '../provider/restaurant_search_provider.dart';
 import '../models/restaurant_search.dart';
 import 'search_screen.dart';
 
@@ -28,10 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: const RestaurantListScreen(),
     ),
     const SearchScreen(),
-    ChangeNotifierProvider<RestaurantSearchProvider>(
-      create: (_) => RestaurantSearchProvider(apiService: ApiService()),
-      child: const SearchScreen(),
-    ),
+
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [

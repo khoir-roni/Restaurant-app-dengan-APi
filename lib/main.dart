@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'screens/search_result_screen.dart';
 import 'models/restaurant_list.dart';
 import 'screens/search_screen.dart';
 import 'screens/home_page.dart';
-
 
 import 'screens/detail_page.dart';
 import 'theme/theme.dart';
@@ -48,6 +48,9 @@ class MyApp extends StatelessWidget {
                 restaurantId:
                     ModalRoute.of(context)?.settings.arguments as String,
               ),
+          SearchResultScreen.routeName: (context) => SearchResultScreen(
+                query: ModalRoute.of(context)?.settings.arguments as String,
+              )
         });
   }
 }

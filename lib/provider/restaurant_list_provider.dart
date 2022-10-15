@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../api/api_service.dart';
 import '../models/restaurant_list.dart';
 
-
 enum ResultState { loading, noData, hasData, error }
 
 class RestaurantListProvider extends ChangeNotifier {
@@ -25,10 +24,13 @@ class RestaurantListProvider extends ChangeNotifier {
 
 //bertugas melakukan proses pengambilan data dari internet
   Future<dynamic> _fetchAllRestaurantList() async {
+
     try {
+
       _state = ResultState.loading;
       notifyListeners();
       final restaurant = await apiService.fetchList();
+       print("_fetchAllRestaurantList($restaurant)");
       if (restaurant.restaurants.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
@@ -37,12 +39,13 @@ class RestaurantListProvider extends ChangeNotifier {
         _state = ResultState.hasData;
         notifyListeners();
         return _restaurantList = restaurant;
+
       }
     } catch (e) {
       _state = ResultState.error;
       notifyListeners();
       return _message = 'Error --> $e';
     }
-  }
 
+  }
 }
