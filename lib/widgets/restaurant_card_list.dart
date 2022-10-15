@@ -16,7 +16,8 @@ class _RestaurantCardListState extends State<RestaurantCardList> {
   @override
   Widget build(BuildContext context) {
     var restaurantElement = widget.restaurant;
-    return GestureDetector(
+    return InkWell(
+      splashColor: secondaryColor,
       onTap: () {
         Navigator.pushNamed(context, DetailScreen.routeName,
             arguments: restaurantElement.id);

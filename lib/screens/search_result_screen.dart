@@ -38,7 +38,7 @@ class SearchResultScreen extends StatelessWidget {
               return const Center(
                   child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  primaryColor
+                  secondaryColor
                 ),
               ));
             } else if (state.state == ResultState.hasData) {
